@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +18,6 @@ public class User {
     private String profilePicture;
     private String biography;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime registrationDate;
 
     // User to Channel relationship

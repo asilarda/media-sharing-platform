@@ -10,8 +10,6 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ratingID;
-
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)

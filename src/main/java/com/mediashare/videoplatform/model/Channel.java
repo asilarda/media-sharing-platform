@@ -16,7 +16,6 @@ public class Channel {
     private String profilePicture;
     private String backgroundImage;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
 
     @ManyToOne

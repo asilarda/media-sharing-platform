@@ -14,8 +14,6 @@ public class Video {
 
     private String title;
     private String description;
-
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime uploadDate;
 
     private Duration duration;

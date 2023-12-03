@@ -11,8 +11,6 @@ public class Comment {
     private Long commentID;
 
     private String text;
-
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
 
     @ManyToOne
