@@ -28,4 +28,17 @@ class ChannelRepositoryTest extends AbstractPostgresContainerBaseTest {
         assertThat(savedChannel.getChannelID()).isNotNull();
     }
 
+    // findChannelById
+    // updateChannel
+    // deleteChannel
+    // listAllChannels
+    //
+    /*
+    *
+    *     Edge Cases: Test with null values, empty strings, very long strings, etc.
+    Transactional Behavior: Verify that transactions work as expected (e.g., nothing is saved if an operation in a transaction fails).
+    Concurrent Access: (Advanced) Test how the repository behaves under concurrent access, if applicable.
+    *
+    *
+    * */
 }

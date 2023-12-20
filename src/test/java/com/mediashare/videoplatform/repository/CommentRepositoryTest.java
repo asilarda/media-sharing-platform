@@ -17,4 +17,19 @@ class CommentRepositoryTest extends AbstractPostgresContainerBaseTest {
         Comment savedComment = commentRepository.save(comment);
         assertThat(savedComment).isNotNull();
     }
+
+    // postComment
+    // retrieveComment
+    // updateComment
+    // deleteComment
+    // commentspagination
+
+    /*
+    *
+    *     Edge Cases: Test with null values, empty strings, very long strings, etc.
+    Transactional Behavior: Verify that transactions work as expected (e.g., nothing is saved if an operation in a transaction fails).
+    Concurrent Access: (Advanced) Test how the repository behaves under concurrent access, if applicable.
+    *
+    *
+    * */
 }
