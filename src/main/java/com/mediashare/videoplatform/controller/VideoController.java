@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,11 +22,6 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    @GetMapping("/csrf")
-    public CsrfToken csrf(CsrfToken token) {
-        logger.debug("Retrieving CSRF token");
-        return token;
-    }
     @GetMapping("/{id}")
     public ResponseEntity<Video> getVideo(@PathVariable Long id) {
         logger.debug("GET request for video with ID: {}", id);
