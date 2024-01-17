@@ -1,45 +1,83 @@
 package com.mediashare.videoplatform.controller;
 
 import com.mediashare.videoplatform.dto.VideoDTO;
+import com.mediashare.videoplatform.exception.VideoNotFoundException;
 import com.mediashare.videoplatform.model.Video;
 import com.mediashare.videoplatform.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("videos")
 public class VideoController {
-    @Autowired
-    private VideoService videoService;
+
+    private final VideoService videoService;
     private final static Logger logger = LoggerFactory.getLogger(VideoController.class);
+
+    @Autowired
+    public VideoController(VideoService videoService) {
+        this.videoService = videoService;
+    }
 
     @GetMapping("/csrf")
     public CsrfToken csrf(CsrfToken token) {
+        logger.debug("Retrieving CSRF token");
         return token;
     }
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody Optional<Video> getVideo(@PathVariable Long id) {
-        return videoService.findVideoById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Video> getVideo(@PathVariable Long id) {
+        logger.debug("GET request for video with ID: {}", id);
+        try {
+            Video video = videoService.findVideoById(id)
+                    .orElseThrow(() -> new VideoNotFoundException("Video not found with ID: " + id));
+            return ResponseEntity.ok(video);
+        } catch (Exception e) {
+            logger.error("Failed to get video with ID: {}", id, e);
+            throw e;
+        }
     }
 
     @PostMapping
-    public @ResponseBody VideoDTO createVideo(@RequestBody VideoDTO video) {
-        return videoService.saveVideo(video);
+    public ResponseEntity<VideoDTO> createVideo(@RequestBody VideoDTO videoDTO) {
+        logger.debug("POST request to create a video");
+        try {
+            VideoDTO createdVideo = videoService.saveVideo(videoDTO);
+            logger.info("Created a new video with ID: {}", createdVideo.getVideoID());
+            return ResponseEntity.ok(createdVideo);
+        } catch (Exception e) {
+            logger.error("Failed to create video", e);
+            throw e;
+        }
     }
 
-    @DeleteMapping(value = "/{id}")
-    public String deleteVideo(@PathVariable Long id) {
-        return videoService.deleteVideo(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteVideo(@PathVariable Long id) {
+        logger.debug("DELETE request for video with ID: {}", id);
+        try {
+            videoService.deleteVideo(id);
+            logger.info("Deleted video with ID: {}", id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            logger.error("Failed to delete video with ID: {}", id, e);
+            throw e;
+        }
     }
 
-    @PutMapping(value = "/{id}")
-    public @ResponseBody VideoDTO updateVideo(@PathVariable Long id, @RequestBody VideoDTO video) {
-        video.setVideoID(id);
-        return videoService.updateVideo(video);
+    @PutMapping("/{id}")
+    public ResponseEntity<VideoDTO> updateVideo(@PathVariable Long id, @RequestBody VideoDTO videoDTO) {
+        logger.debug("PUT request to update video with ID: {}", id);
+        try {
+            videoDTO.setVideoID(id);
+            VideoDTO updatedVideo = videoService.updateVideo(videoDTO);
+            logger.info("Updated video with ID: {}", updatedVideo.getVideoID());
+            return ResponseEntity.ok(updatedVideo);
+        } catch (Exception e) {
+            logger.error("Failed to update video with ID: {}", id, e);
+            throw e;
+        }
     }
 }
