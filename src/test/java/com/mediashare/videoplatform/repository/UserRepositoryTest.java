@@ -25,7 +25,7 @@ class UserRepositoryTest extends AbstractPostgresContainerBaseTest {
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getUserID()).isNotNull();
         assertThat(savedUser.getUsername()).isEqualTo("TestUser");
-        assertThat(savedUser.getUsername()).isEqualTo("max@muster.at");
+        assertThat(savedUser.getEmail()).isEqualTo("max@muster.at");
     }
     @Test
     public void testUserRetrieval() {
@@ -37,7 +37,7 @@ class UserRepositoryTest extends AbstractPostgresContainerBaseTest {
         Optional<User> foundUser = userRepository.findById(savedUser.getUserID());
         assertThat(foundUser).isPresent();
         assertThat(foundUser.get().getUsername()).isEqualTo("Test User");
-        assertThat(savedUser.getUsername()).isEqualTo("max@muster.at");
+        assertThat(savedUser.getEmail()).isEqualTo("max@muster.at");
     }
 
     @Test
@@ -51,7 +51,7 @@ class UserRepositoryTest extends AbstractPostgresContainerBaseTest {
         savedUser.setEmail("maxupdated@muster.at");
         User updatedUser = userRepository.save(savedUser);
         assertThat(updatedUser.getUsername()).isEqualTo("Updated User");
-        assertThat(updatedUser.getUsername()).isEqualTo("maxupdated@muster.at");
+        assertThat(updatedUser.getEmail()).isEqualTo("maxupdated@muster.at");
     }
 
     @Test
