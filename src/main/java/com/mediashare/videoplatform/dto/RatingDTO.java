@@ -1,36 +1,17 @@
 package com.mediashare.videoplatform.dto;
 
 import com.mediashare.videoplatform.enums.RatingType;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 public class RatingDTO {
     private Long ratingID;
     private LocalDateTime date;
 
     private RatingType type;
 
-    public Long getRatingID() {
-        return ratingID;
-    }
-
-    public void setRatingID(Long ratingID) {
-        this.ratingID = ratingID;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public RatingType getType() {
-        return type;
-    }
-
-    public void setType(RatingType type) {
-        this.type = type;
-    }
 }

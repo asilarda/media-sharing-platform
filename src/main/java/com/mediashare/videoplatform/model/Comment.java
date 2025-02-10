@@ -1,9 +1,13 @@
 package com.mediashare.videoplatform.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 public class Comment {
     @Id
@@ -21,43 +25,4 @@ public class Comment {
     @JoinColumn(name = "video_id")
     private Video video;
 
-    public Long getCommentID() {
-        return commentID;
-    }
-
-    public void setCommentID(Long commentID) {
-        this.commentID = commentID;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public Video getVideo() {
-        return video;
-    }
-
-    public void setVideo(Video video) {
-        this.video = video;
-    }
 }

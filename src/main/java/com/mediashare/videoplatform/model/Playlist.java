@@ -1,9 +1,13 @@
 package com.mediashare.videoplatform.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 public class Playlist {
     @Id
@@ -24,35 +28,4 @@ public class Playlist {
     )
     private Set<Video> videos;
 
-    public Long getPlaylistID() {
-        return playlistID;
-    }
-
-    public void setPlaylistID(Long playlistID) {
-        this.playlistID = playlistID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public Set<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(Set<Video> videos) {
-        this.videos = videos;
-    }
 }
